@@ -1,0 +1,8 @@
+web:
+    image: nginx_echo
+    volumes:
+        - ./nginx.conf:/opt/nginx/conf/nginx.conf:ro
+        - ./log:/var/log/nginx
+    ports:
+        - 8080:80
+
