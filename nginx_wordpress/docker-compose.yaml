@@ -1,0 +1,32 @@
+version: '3.0'
+services:
+  nginx_c:
+    image: nginx_echo
+    depends_on:
+      - wordpress_c
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/opt/nginx/conf/nginx.conf:ro
+      - ./log:/var/log/nginx
+  wordpress_c:
+    image: wordpress
+    depends_on:
+      - mariadb_c
+    environment:
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=Mariadb123
+      - WORDPRESS_DB_NAME=wordpressdemo
+    ports:
+      - 8002:80
+    links:
+      - mariadb_c:mysql
+  mariadb_c:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=Mariadb123
+      - MYSQL_DATABASE=wordpressdemo
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/var/lib/mysql
