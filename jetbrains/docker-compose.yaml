@@ -1,0 +1,6 @@
+version: '3.0'
+services:
+  register_server:
+    image: luamas/jetbrains-license-server
+    ports:
+      - 22508:22508
